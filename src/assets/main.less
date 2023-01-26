@@ -1,0 +1,256 @@
+@import "node_modules/nord/src/lesscss/nord.less";
+@import "transitions.less";
+
+.center {
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  .flex();
+  flex-direction: column;
+}
+
+.flex-col-reversed {
+  .flex-col();
+  flex-direction: column-reverse;
+}
+
+.flex-row {
+  .flex();
+  flex-direction: row;
+}
+
+.flex-stretch {
+  align-content: stretch;
+}
+
+.flex-gap-1rem {
+  gap: 1rem;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-v-centered {
+  align-self: center;
+}
+
+.rounded {
+  border-radius: 0.4rem;
+}
+
+.theme(@element,@light,@dark) {
+  @{element}: @dark;
+
+  [theme="light"] & {
+    @{element}: @light;
+  }
+}
+
+.default-theme {
+  .theme(color, @nord1, @nord4);
+  .theme(background-color, @nord6, @nord1);
+}
+
+.default-font {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  .theme(color, @nord10, @nord8);
+  &:visited {
+    color: @nord15;
+  }
+}
+
+body {
+  .theme(background-color, @nord6, @nord1);
+  transition: background-color @transition-medium ease;
+  margin: 0;
+  padding: 0;
+}
+
+#app,
+#modal {
+  text-align: center;
+  .theme(color, @nord2, @nord6);
+  .default-font;
+  transition: color @transition-medium ease;
+}
+
+.blur-background {
+  backdrop-filter: blur(0.4rem);
+}
+
+.backdrop {
+  .blur-background();
+  top: 0;
+  position: fixed;
+  .theme(background-color, fade(@nord6, 60), fade(@nord0, 60));
+  width: 100%;
+  height: 100%;
+}
+
+.box-sizing-border {
+  box-sizing: border-box;
+}
+
+.gap-1rem {
+  gap: 1rem;
+}
+
+.card {
+  .rounded();
+  .theme(background-color, @nord4, @nord2);
+  .theme(color, @nord3, @nord5);
+  padding: 2rem;
+  margin: 4rem auto;
+  max-width: 600px;
+}
+
+.inline {
+  display: inline;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.generic-button {
+  .default-theme();
+  .default-font();
+  .rounded();
+  .clickable();
+  min-width: 8rem;
+}
+.query-form {
+  gap: 1em;
+
+  .flex-row;
+  align-items: flex-end;
+  width: 90%;
+  max-width: 40rem;
+  padding: 2rem;
+
+  @media (max-width: 30rem) {
+    .flex-col;
+    align-items: center;
+  }
+
+  .query-input {
+    flex-grow: 1;
+    padding: 0 1rem;
+    flex-direction: column-reverse;
+    align-content: flex-start;
+
+    @media (max-width: 30rem) {
+      padding: 1rem;
+    }
+  }
+}
+
+.form-button {
+  .rounded();
+  .breathe();
+  .theme(background-color, @nord5, @nord3);
+  .theme(color, @nord3, @nord5);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  transition: all @transition-medium ease-in-out;
+  .theme(box-shadow, 0 0 0 @nord3, 0 0 0 @nord1);
+
+  &:hover {
+    opacity: 0.8;
+    .theme(box-shadow, 0 0 1rem @nord3, 0 0 0.6rem @nord0);
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.cancelbtn {
+  .breathe();
+  background-color: @nord11 !important;
+  color: @nord6 !important;
+}
+
+.form-side-margin {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+label,
+h2,
+.error {
+  .form-side-margin();
+  .default-font();
+}
+
+h2 {
+  text-align: center;
+  font-size: 2em;
+}
+
+.breathe {
+  padding: 1rem 1.3rem;
+}
+
+.input-text {
+  .rounded();
+  .breathe();
+  width: 100%;
+  display: inline-block;
+  border: 1px solid @nord2;
+  box-sizing: border-box;
+}
+
+.button-as-link {
+  .default-theme();
+  .default-font();
+  .theme(background-color, inherit, inherit);
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: underline;
+  transition: color @transition-medium ease, background @transition-medium ease;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hide-label-no-placeholder(@name) {
+  each(@name, {
+        input[name="@{value}"] {
+            & + label[for="@{value}"] {
+                opacity: 0;
+                transition: opacity @transition-medium ease;
+            }
+
+            &:not(:placeholder-shown) + label[for="@{value}"] {
+                opacity: 1;
+                transition: opacity @transition-medium ease;
+            }
+        }
+    });
+}
+
+.top-bottom-margin-1rem {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-input {
+  .flex-col-reversed();
+  .top-bottom-margin-1rem();
+  .box-sizing-border();
+}

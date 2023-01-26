@@ -1,0 +1,41 @@
+@transition-fast: 0.1s;
+@transition-medium: 0.3s;
+@transition-slow: 0.5s;
+
+// Page fading ////////////////////////////////////////////////////////////////
+.fade-page-enter-active,
+.fade-page-leave-active {
+  transition: opacity @transition-fast ease;
+}
+
+.fade-page-enter-from,
+.fade-page-leave-to {
+  opacity: 0;
+}
+
+.fade-page-enter-active {
+  transition: opacity @transition-fast ease @transition-medium;
+}
+
+// Simple fading //////////////////////////////////////////////////////////////
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity @transition-medium ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// Fade and grow //////////////////////////////////////////////////////////////
+.fade-grow-enter-active,
+.fade-grow-leave-active {
+  transition: opacity @transition-slow ease, height @transition-slow ease;
+}
+
+.fade-grow-enter-from,
+.fade-grow-leave-to {
+  .fade-enter-from();
+  height: 0;
+}
